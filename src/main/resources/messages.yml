@@ -3,5 +3,8 @@ prefix: '[OnDemandServer]'
 # Console message after successful plugin start
 plugin_enabled: '{0} Successfully started'
 
+# Console message after successful plugin shutdown
+plugin_disabled: '{0} Successfully disabled'
+
 # Message send to a player trying to switch to a stopped server
 redirect: 'Server is starting, you''ll be automatically redirected.'
