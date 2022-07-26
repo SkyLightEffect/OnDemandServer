@@ -13,7 +13,7 @@ import java.text.MessageFormat;
 
 public class MsgCFG {
     private static Configuration config;
-    private final static String filename = "config.yml";
+    private final static String filename = "messages.yml";
 
     public static void loadConfig(Plugin plugin) {
 
