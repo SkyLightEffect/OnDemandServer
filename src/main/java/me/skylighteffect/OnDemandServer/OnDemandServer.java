@@ -22,7 +22,7 @@ public final class OnDemandServer extends Plugin {
         MainCFG.loadConfig(this);
         MsgCFG.loadConfig(this);
 
-        getLogger().info(MsgCFG.getContent("plugin_enabled"));
+        getLogger().info(MsgCFG.getContent("plugin_enabled", plugin.getDescription().getVersion()));
     }
 
     @Override
