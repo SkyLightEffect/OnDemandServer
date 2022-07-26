@@ -1,0 +1,4 @@
+name: OnDemandServer
+version: '${project.version}'
+main: me.skylighteffect.ondemandserver.OnDemandServer
+description: A BungeeCord plugin to start Minecraft servers on demand
