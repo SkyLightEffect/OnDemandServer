@@ -35,4 +35,8 @@ public class MainCFG {
             e.printStackTrace();
         }
     }
+
+    public static String getScriptPath() {
+        return config.getString("start_scripts_path");
+    }
 }
