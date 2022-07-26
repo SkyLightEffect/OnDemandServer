@@ -9,6 +9,7 @@ public final class OnDemandServer extends Plugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+
         MainCFG.loadConfig(this);
         MsgCFG.loadConfig(this);
 
