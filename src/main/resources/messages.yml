@@ -1,0 +1,7 @@
+prefix: '[OnDemandServer]'
+
+# Console message after successful plugin start
+plugin_enabled: '%PREFIX% Successfully started.'
+
+# Message send to a player trying to switch to a stopped server
+redirect: 'Server is starting, you''ll be automatically redirected.'
