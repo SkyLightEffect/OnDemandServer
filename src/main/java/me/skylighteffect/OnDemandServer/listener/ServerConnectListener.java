@@ -3,7 +3,9 @@ package me.skylighteffect.OnDemandServer.listener;
 import io.netty.channel.Channel;
 import me.skylighteffect.OnDemandServer.OnDemandServer;
 import me.skylighteffect.OnDemandServer.configs.MainCFG;
+import me.skylighteffect.OnDemandServer.configs.MsgCFG;
 import net.md_5.bungee.api.Callback;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.ServerConnectRequest;
 import net.md_5.bungee.api.ServerPing;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -24,13 +26,15 @@ public class ServerConnectListener implements Listener {
 
             target.ping((result, error) -> {
                 if (error != null) {
-                    OnDemandServer.plugin.getLogger().warning("SERVER NOT ONLINE");
-
                         TextComponent message = new TextComponent();
-                        message.setText("Der Server wird nun für dich hochgefahren. Bitte habe einen Moment Geduld und versuche es erneut");
+                        String text = MsgCFG.getContent("startup_server", target.getName());
+                        message.setText(text);
 
                         if (p.getServer() == null)
                             p.disconnect(message);
+                        else {
+                            p.sendMessage(ChatMessageType.CHAT, message);
+                        }
                         e.setCancelled(true);
 
                         startServer(target);

@@ -8,3 +8,5 @@ plugin_disabled: '{0} Successfully disabled'
 
 # Message send to a player trying to switch to a stopped server
 redirect: 'Server is starting, you''ll be automatically redirected.'
+
+startup_server: '&bDer {0} Server wird nun für dich gestarted. Bitte habe einen Moment &rGeduld &bund versuche es erneut.'
