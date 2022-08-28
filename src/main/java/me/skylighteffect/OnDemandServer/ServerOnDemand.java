@@ -7,17 +7,17 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
+import java.net.InetSocketAddress;
+import java.util.logging.Level;
+
 public class ServerOnDemand {
     private final ServerInfo serverInfo;
-
-    private final String name;
     private ServerStatus status;
     private Process process;
     private ProxiedPlayer requester;
 
 
-    public ServerOnDemand(String name, ServerInfo serverInfo) {
-        this.name = name;
+    public ServerOnDemand(ServerInfo serverInfo) {
         this.serverInfo = serverInfo;
         this.status = ServerStatus.UNKNOWN;
     }
@@ -32,6 +32,7 @@ public class ServerOnDemand {
     }
 
     private StartingStatus start() {
+
         switch (getStatus()) {
             case STARTED:
                 return StartingStatus.ALREADY_STARTED;
@@ -40,9 +41,7 @@ public class ServerOnDemand {
         }
 
         // Ping server until it is started
-        ProxyServer.getInstance().getScheduler().runAsync(Main.plugin, () -> {
-            new Ping(this);
-        });
+        ProxyServer.getInstance().getScheduler().runAsync(Main.plugin, () -> new Ping(this));
 
         ProcessBuilder pb = new ProcessBuilder(MainCFG.getScriptPath() + "/" + serverInfo.getName() + "/start.sh");
         try {

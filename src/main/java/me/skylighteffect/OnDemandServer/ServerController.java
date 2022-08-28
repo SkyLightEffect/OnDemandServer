@@ -18,7 +18,7 @@ public class ServerController {
 
         for (Map.Entry<String, ServerInfo> entry : servers.entrySet()) {
             ServerInfo serverInfo = entry.getValue();
-            ServerOnDemand server = new ServerOnDemand(entry.getKey(), serverInfo);
+            ServerOnDemand server = new ServerOnDemand(serverInfo);
 
             this.servers.put(serverInfo, server);
 
@@ -40,12 +40,12 @@ public class ServerController {
         int port = ((InetSocketAddress) serverInfo.getSocketAddress()).getPort();
         boolean serverRunningOnPort = !isAvailable(port);
 
-        boolean processRunning = this.getServer(serverInfo).getProcess() != null;
+        boolean processRunning = this.getServer(serverInfo).getProcess() != null && this.getServer(serverInfo).getProcess().isAlive();
 
         return serverRunningOnPort || processRunning;
     }
 
-    private static boolean isAvailable(int portNr) {
+    public static boolean isAvailable(int portNr) {
         boolean portFree;
         try (ServerSocket ignored = new ServerSocket(portNr)) {
             portFree = true;
