@@ -1,5 +1,6 @@
 package me.skylighteffect.OnDemandServer.listener;
 
+import io.netty.channel.Channel;
 import me.skylighteffect.OnDemandServer.OnDemandServer;
 import me.skylighteffect.OnDemandServer.configs.MainCFG;
 import net.md_5.bungee.api.Callback;
@@ -13,6 +14,7 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class ServerConnectListener implements Listener {
     @EventHandler
@@ -20,32 +22,29 @@ public class ServerConnectListener implements Listener {
         ServerInfo target = e.getTarget();
         ProxiedPlayer p = e.getPlayer();
 
-        if (e.getReason() != ServerConnectEvent.Reason.PLUGIN) {
+            target.ping((result, error) -> {
+                if (error != null) {
+                    OnDemandServer.plugin.getLogger().warning("SERVER NOT ONLINE");
 
-            e.setCancelled(true);
+                        TextComponent message = new TextComponent();
+                        message.setText("Der Server wird nun für dich hochgefahren. Bitte habe einen Moment Geduld und versuche es erneut");
 
-            ServerConnectRequest.Builder builder = ServerConnectRequest.builder()
-                    .retry(false)
-                    .reason(ServerConnectEvent.Reason.PLUGIN)
-                    .target(target)
-                    .connectTimeout(e.getRequest().getConnectTimeout())
-                    .callback(new Callback<ServerConnectRequest.Result>() {
-                        @Override
-                        public void done(ServerConnectRequest.Result result, Throwable error) {
-                            if (result == ServerConnectRequest.Result.FAIL) {
+                        if (p.getServer() == null)
+                            p.disconnect(message);
+                        e.setCancelled(true);
 
-                                ProcessBuilder pb = new ProcessBuilder(MainCFG.getScriptPath() + "/" + target.getName() +  "/start.sh");
-                                try {
-                                    pb.start();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                                OnDemandServer.plugin.getLogger().info("START SERVER...");
-                            }
-                        }
-                    });
-            p.connect(builder.build());
+                        startServer(target);
+                }
+            });
+    }
 
+    private static void startServer(ServerInfo target) {
+        ProcessBuilder pb = new ProcessBuilder(MainCFG.getScriptPath() + "/" + target.getName() + "/start.sh");
+        try {
+            pb.start();
+            OnDemandServer.plugin.getLogger().info("START " + target.getName() + " via " + MainCFG.getScriptPath() + "/" + target.getName() + "/start.sh");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
