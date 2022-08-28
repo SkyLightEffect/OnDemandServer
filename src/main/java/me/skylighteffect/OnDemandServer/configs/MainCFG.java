@@ -38,4 +38,8 @@ public class MainCFG {
     public static String getScriptPath() {
         return config.getString("start_scripts_path");
     }
+
+    public static long getMaxStartupTimeMillis() {
+        return config.getLong("max_startup_time");
+    }
 }

@@ -47,7 +47,6 @@ public class ServerOnDemand {
         ProcessBuilder pb = new ProcessBuilder(MainCFG.getScriptPath() + "/" + serverInfo.getName() + "/start.sh");
         try {
             process = pb.start();
-            Main.plugin.getLogger().info("DEBUG #1: " + status);
             status = ServerStatus.STARTING;
             return StartingStatus.STARTING;
         } catch (Exception e) {

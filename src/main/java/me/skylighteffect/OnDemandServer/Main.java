@@ -2,7 +2,9 @@ package me.skylighteffect.OnDemandServer;
 
 import me.skylighteffect.OnDemandServer.configs.MainCFG;
 import me.skylighteffect.OnDemandServer.configs.MsgCFG;
+import me.skylighteffect.OnDemandServer.events.ServerStartFailedEvent;
 import me.skylighteffect.OnDemandServer.listener.ServerConnectListener;
+import me.skylighteffect.OnDemandServer.listener.ServerStartFailedListener;
 import me.skylighteffect.OnDemandServer.listener.ServerStartedListener;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -33,6 +35,7 @@ public final class Main extends Plugin {
         // Register events
         getProxy().getPluginManager().registerListener(this, new ServerConnectListener());
         getProxy().getPluginManager().registerListener(this, new ServerStartedListener());
+        getProxy().getPluginManager().registerListener(this, new ServerStartFailedListener());
 
         // Final message
         getLogger().info(MsgCFG.getContent("plugin_enabled", plugin.getDescription().getVersion()));

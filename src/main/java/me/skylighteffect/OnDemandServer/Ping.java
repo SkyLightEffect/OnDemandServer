@@ -1,5 +1,7 @@
 package me.skylighteffect.OnDemandServer;
 
+import me.skylighteffect.OnDemandServer.configs.MainCFG;
+import me.skylighteffect.OnDemandServer.events.ServerStartFailedEvent;
 import me.skylighteffect.OnDemandServer.events.ServerStartedEvent;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
@@ -8,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 public class Ping {
-    private final static long MAX_STARTUP_TIME = 90000;
+    private final static long MAX_STARTUP_TIME = MainCFG.getMaxStartupTimeMillis();
     private final static long PING_INTERVAL = 100;
 
     private ServerOnDemand server;
@@ -29,12 +31,10 @@ public class Ping {
 
     private void ping() {
 
-        Main.plugin.getLogger().info("PING");
-
         // Ping timeout
         if (this.end - this.start > timeout) {
-            Main.plugin.getLogger().log(Level.WARNING, "Maximum ping tries reached, aborting.");
-            //ProxyServer.getInstance().getPluginManager().callEvent(new ServerStartFailEvent())
+            Main.plugin.getLogger().log(Level.WARNING, "Maximum ping tries for " + server.getServerInfo().getName() + " server reached, aborting.");
+            ProxyServer.getInstance().getPluginManager().callEvent(new ServerStartFailedEvent(server, this));
             return;
         }
 
@@ -42,8 +42,8 @@ public class Ping {
             end = System.currentTimeMillis();
 
             if (serverPing != null) {
-                Main.plugin.getLogger().info("STARTED");
                 ProxyServer.getInstance().getPluginManager().callEvent(new ServerStartedEvent(server, this));
+                return;
             } else {
                 Main.plugin.getProxy().getScheduler().schedule(Main.plugin, this::ping, PING_INTERVAL, TimeUnit.MILLISECONDS);
             }

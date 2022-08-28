@@ -15,3 +15,6 @@ startup:
 already_starting:
   proxy_join: '&cDer &6{0} &cServer wird gerade gestartet... Bitte habe einen Moment Geduld und versuche es erneut.'
   change_server: '&cDer &7{0} &cServer wird gerade gestartet...'
+
+start_failed: '&4Zeitüberschreitung &7({1}): &7der &c{0} &7Server konnt nicht gestartet werden'
+start_successful: '&2Der &a{0} &2Server wurde erfolgreich gestarted. &7Startdauer: {1}ms'
