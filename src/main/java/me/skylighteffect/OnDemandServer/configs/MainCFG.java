@@ -1,6 +1,5 @@
 package me.skylighteffect.OnDemandServer.configs;
 
-import me.skylighteffect.OnDemandServer.OnDemandServer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;

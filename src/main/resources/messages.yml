@@ -9,4 +9,9 @@ plugin_disabled: '{0} Successfully disabled'
 # Message send to a player trying to switch to a stopped server
 redirect: 'Server is starting, you''ll be automatically redirected.'
 
-startup_server: '&bDer {0} Server wird nun für dich gestarted. Bitte habe einen Moment &rGeduld &bund versuche es erneut.'
+startup:
+  proxy_join: '&2Der &e{0} &2Server wird nun für dich gestartet... Bitte habe einen Moment Geduld und versuche es erneut.'
+  change_server: '&2Der &e{0} &2Server wird nun für dich gestartet. Sobald er verfügbar ist, wirst du weitergeleitet...'
+already_starting:
+  proxy_join: '&cDer &6{0} &cServer wird gerade gestartet... Bitte habe einen Moment Geduld und versuche es erneut.'
+  change_server: '&cDer &7{0} &cServer wird gerade gestartet...'
